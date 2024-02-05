@@ -1,0 +1,7 @@
+# Global dependencies of the project
+fire
+fastapi
+uvicorn
+pyyaml
+
+# demo dependencies

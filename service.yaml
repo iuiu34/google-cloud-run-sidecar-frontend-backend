@@ -1,0 +1,67 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  annotations:
+    run.googleapis.com/launch-stage: BETA
+  name: ds-demo-app
+spec:
+  template:
+    metadata:
+      annotations:
+        run.googleapis.com/execution-environment: gen2
+    spec:
+      containers:
+        - name: frontend
+          image: europe-docker.pkg.dev/$PROJECT/$ARTIFACT/ds-demo-app-frontend:v0.0.1
+
+          env:
+            - name: BACKEND_URL
+              value: 'https://$YOUR_APP_URL/api'
+            - name: BUCKET
+              value: gs://ds-demo-app
+            - name: PROJECT
+              value: $PROJECT
+            - name: CLOUD_RUN
+              value: "True"
+            - name: ENVIRONMENT
+              value: PROD
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: "4"
+              memory: "8Gi"
+            limits:
+              cpu: "4"
+              memory: "8Gi"
+          startupProbe:
+            httpGet:
+              path: /
+        - name: backend
+          image: europe-docker.pkg.dev/$PROJECT/$ARTIFACT/ds-demo-app-backend:v0.0.1
+          env:
+            - name: PORT
+              value: "81"
+            - name: BUCKET
+              value: gs://ds-demo-app
+            - name: PROJECT
+              value: $PROJECT
+            - name: CLOUD_RUN
+              value: "True"
+            - name: ENVIRONMENT
+              value: PROD
+          resources:
+            requests:
+              cpu: "4"
+              memory: "8Gi"
+            limits:
+              cpu: "4"
+              memory: "8Gi"
+          startupProbe:
+            httpGet:
+              path: /
+#        volumeMounts:
+#        - name: bucket
+#          mountPath: /bucket
+
+# IAM & Admin > Identity-Aware Proxy
