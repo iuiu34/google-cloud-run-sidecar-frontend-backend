@@ -16,7 +16,7 @@ spec:
 
           env:
             - name: BACKEND_URL
-              value: 'https://$YOUR_APP_URL/api'
+              value: 'https://$APP_URL/api'
             - name: BUCKET
               value: gs://ds-demo-app
             - name: PROJECT

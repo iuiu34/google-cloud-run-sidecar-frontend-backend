@@ -12,7 +12,7 @@ Deploy an app frontend & backend in a single google cloud run service with a sid
 - backend: python + fastapi + uvicorn
 
 ## Deploy
-Replace $PROJECT, $ARTIFACT, and $YOUR_APP_URL in service.yaml.
+Replace $PROJECT, $ARTIFACT, and $APP_URL in service.yaml.
 
 Run:
 ```sh
@@ -21,12 +21,12 @@ deploy_app --cloud-run --frontend --tox False
 ```
 
 ## Debug
-Open 2 terminals and run:
-
+In one terminal, run:
 ```sh
 sh backend.sh
 ```
 
+In another terminal, run:
 ```sh
 sh frontend.sh
 ```
